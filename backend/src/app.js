@@ -4,6 +4,7 @@ const cors = require('cors');
 const { sequelize } = require('./models');
 const { notFound, errorHandler } = require('./middlewares/errorHandler');
 const authRoutes = require('./routes/authRoutes');
+const ticketRoutes = require('./routes/ticketRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -19,6 +20,7 @@ app.get('/api/health', (req, res) => {
 
 // Rutas - Endpoints
 app.use('/api/auth', authRoutes);
+app.use('/api/tickets', ticketRoutes);
 
 // Manejo de errores
 app.use(notFound);
