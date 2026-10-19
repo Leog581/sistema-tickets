@@ -5,6 +5,7 @@ const { sequelize } = require('./models');
 const { notFound, errorHandler } = require('./middlewares/errorHandler');
 const authRoutes = require('./routes/authRoutes');
 const ticketRoutes = require('./routes/ticketRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -21,6 +22,7 @@ app.get('/api/health', (req, res) => {
 // Rutas - Endpoints
 app.use('/api/auth', authRoutes);
 app.use('/api/tickets', ticketRoutes);
+app.use('/api/users', userRoutes);
 
 // Manejo de errores
 app.use(notFound);
