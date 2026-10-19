@@ -76,6 +76,52 @@ const updateTicket = async (req, res) => {
     res.json(ticket);
 };
 
-module.exports = { createTicket, listMyTickets, getAllTickets, getTicketById, updateTicket };
+const changeTicketStatus = async (req, res) => {
+    const id = Number(req.params.id);
+    if(Number.isNaN(id)) {
+        return res.status(400).json({ error: "ID inválido" });
+    }
+
+    const ticket = await Ticket.findByPk(id);
+    if(!ticket){
+        return res.status(404).json({ error: 'Ticket no encontrado' });
+    }
+
+    const { status } = req.body;
+    const validStatuses = ['open','in_progress','closed'];
+    if(!validStatuses.includes(status)) {
+        return res.status(400).json({ error: 'Estado inválido. Debe ser open, in_progress o closed'});
+    }
+
+    await ticket.update ({ status });
+    res.json(ticket);
+};
+
+const deleteTicket = async (req, res) => {
+    const id = Number(req.params.id);
+    if(Number.isNaN(id)) {
+        return res.status(400).json({ error: 'ID inválido' });
+    }
+
+    const ticket = await Ticket.findByPk(id);
+    if(!ticket){
+        return res.status(404).json({ error: 'Ticket no encontrado' });
+    }
+
+    const isOwner = ticket.userId === req.user.id;
+    const isAdmin = req.user.role === 'admin';
+    if(!isAdmin && !isOwner){
+        return res.status(404).json({ error: 'Ticket no encontrado' });
+    }
+
+    if(!isAdmin && ticket.status !== 'open'){
+        return res.status(403).json({ error: 'No se puede eliminar un ticket en proceso o cerrado'})
+    }
+
+    await ticket.destroy();
+    return res.status(204).send();
+};
+
+module.exports = { createTicket, listMyTickets, getAllTickets, getTicketById, updateTicket, changeTicketStatus, deleteTicket };
 
 
