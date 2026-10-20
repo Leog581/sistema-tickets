@@ -28,7 +28,7 @@ Aplicación web Full-Stack para la gestión de tickets de soporte técnico. Perm
 Sigue estos pasos para correr el proyecto en tu computadora.
 
 ### 1. Clonar el repositorio
-git clone https://github.com/TU_USUARIO/sistema-tickets.git
+git clone https://github.com/Leog581/sistema-tickets.git
 cd sistema-tickets
 
 ### 2. Configurar el Backend
