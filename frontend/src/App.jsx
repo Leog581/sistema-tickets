@@ -17,7 +17,7 @@ import NotFound from './pages/NotFound';
 
 const App = () => {
     return (
-        <div className="flex flex-col min-h-screen bg-gray-50">
+        <div className="flex flex-col min-h-screen bg-slate-100">
             <Navbar />
             
             {/* El main crece para empujar el footer abajo */}

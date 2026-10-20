@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { api } from '../api/client';
 import StatusBadge from '../components/StatusBadge';
+import Loading from '../components/Loading';
 
 const AdminTickets = () => {
     const [tickets, setTickets] = useState([]);
@@ -53,7 +54,7 @@ const AdminTickets = () => {
         }
     };
 
-    if (loading) return <div className="text-center mt-10">Cargando tickets...</div>;
+    if (loading) return <Loading />;
     if (error) return <div className="text-center mt-10 text-red-600">Error: {error}</div>;
 
     // 4. Filtramos los tickets en el frontend según el estado elegido

@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { api } from '../api/client';
 import StatusBadge from '../components/StatusBadge';
 import { useAuth } from '../context/AuthContext';
+import Loading from '../components/Loading';
 
 const TicketDetail = () => {
     const { id } = useParams(); // Agarramos el ID de la URL
@@ -66,7 +67,7 @@ const TicketDetail = () => {
         }
     };
 
-    if (loading) return <div className="text-center mt-10">Cargando ticket...</div>;
+    if (loading) return <Loading />;
     if (error) return <div className="text-center mt-10 text-red-600">Error: {error}</div>;
     if (!ticket) return <div className="text-center mt-10">Ticket no encontrado</div>;
 
