@@ -83,53 +83,50 @@ const AdminTickets = () => {
                 </div>
             </div>
 
-            <div className="bg-white rounded shadow overflow-x-auto">
+            <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
                 <table className="w-full text-left border-collapse">
                     <thead>
-                        <tr className="bg-gray-100 border-b">
-                            <th className="p-3">ID</th>
-                            <th className="p-3">Título</th>
-                            <th className="p-3">Creador</th>
-                            <th className="p-3">Estado</th>
-                            <th className="p-3">Acciones</th>
+                        <tr className="bg-gray-800 text-white text-xs uppercase tracking-wider">
+                            <th className="p-4 font-semibold">ID</th>
+                            <th className="p-4 font-semibold">Título</th>
+                            <th className="p-4 font-semibold">Creador</th>
+                            <th className="p-4 font-semibold">Estado</th>
+                            <th className="p-4 font-semibold">Acciones</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className="divide-y divide-gray-100">
                         {filteredTickets.length === 0 ? (
                             <tr>
-                                <td colSpan="5" className="p-4 text-center text-gray-500">
+                                <td colSpan="5" className="p-8 text-center text-gray-500 font-medium">
                                     No hay tickets con este filtro.
                                 </td>
                             </tr>
                         ) : (
                             filteredTickets.map((ticket) => (
-                                <tr key={ticket.id} className="border-b hover:bg-gray-50">
-                                    <td className="p-3 font-medium text-gray-500">#{ticket.id}</td>
-                                    <td className="p-3 font-bold">{ticket.title}</td>
-                                    <td className="p-3 text-sm">
-                                        {ticket.User.name}<br/>
-                                        <span className="text-gray-400">{ticket.User.email}</span>
+                                <tr key={ticket.id} className="hover:bg-blue-50/50 transition-colors even:bg-gray-50/50">
+                                    <td className="p-4 font-bold text-gray-400">#{ticket.id}</td>
+                                    <td className="p-4 font-bold text-gray-800">{ticket.title}</td>
+                                    <td className="p-4 text-sm">
+                                        <div className="font-bold text-gray-700">{ticket.User.name}</div>
+                                        <div className="text-gray-500">{ticket.User.email}</div>
                                     </td>
-                                    <td className="p-3">
-                                        <StatusBadge status={ticket.status} />
-                                    </td>
-                                    <td className="p-3 flex gap-2 items-center">
-                                        {/* Selector para cambiar estado rápido */}
+                                    <td className="p-4"><StatusBadge status={ticket.status} /></td>
+                                    <td className="p-4 flex gap-3 items-center">
                                         <select 
                                             value={ticket.status}
                                             onChange={(e) => handleStatusChange(ticket.id, e.target.value)}
-                                            className="border p-1 rounded text-sm bg-white"
+                                            className="border border-gray-300 p-1.5 rounded-lg text-sm bg-white focus:ring-2 focus:ring-blue-500 outline-none cursor-pointer"
                                         >
                                             <option value="open">Abierto</option>
                                             <option value="in_progress">En proceso</option>
                                             <option value="closed">Cerrado</option>
                                         </select>
-                                        
                                         <button 
                                             onClick={() => handleDelete(ticket.id)}
-                                            className="text-red-600 hover:bg-red-50 px-2 py-1 rounded text-sm font-medium"
+                                            className="text-red-600 hover:bg-red-100 p-2 rounded-lg text-sm font-bold transition-colors"
+                                            title="Eliminar"
                                         >
-                                            Eliminar
+                                            ✖
                                         </button>
                                     </td>
                                 </tr>

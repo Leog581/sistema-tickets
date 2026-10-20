@@ -48,41 +48,38 @@ const AdminUsers = () => {
         <div>
             <h2 className="text-2xl font-bold mb-6">Administrar Usuarios</h2>
 
-            <div className="bg-white rounded shadow overflow-x-auto">
+            <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
                 <table className="w-full text-left border-collapse">
                     <thead>
-                        <tr className="bg-gray-100 border-b">
-                            <th className="p-3">ID</th>
-                            <th className="p-3">Nombre</th>
-                            <th className="p-3">Email</th>
-                            <th className="p-3">Rol Actual</th>
-                            <th className="p-3">Cambiar Rol</th>
+                        <tr className="bg-gray-800 text-white text-xs uppercase tracking-wider">
+                            <th className="p-4 font-semibold">ID</th>
+                            <th className="p-4 font-semibold">Nombre</th>
+                            <th className="p-4 font-semibold">Email</th>
+                            <th className="p-4 font-semibold">Rol</th>
+                            <th className="p-4 font-semibold">Cambiar Rol</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className="divide-y divide-gray-100">
                         {users.map((u) => {
-                            // ¿Esta fila es mi propio usuario?
                             const isSelf = u.id === currentUser.id;
-
                             return (
-                                <tr key={u.id} className={`border-b hover:bg-gray-50 ${isSelf ? 'bg-blue-50' : ''}`}>
-                                    <td className="p-3 font-medium text-gray-500">#{u.id}</td>
-                                    <td className="p-3 font-bold">
-                                        {u.name} {isSelf && <span className="text-xs text-blue-600 ml-2">(Vos)</span>}
+                                <tr key={u.id} className={`hover:bg-blue-50/50 transition-colors even:bg-gray-50/50 ${isSelf ? 'bg-blue-50/30' : ''}`}>
+                                    <td className="p-4 font-bold text-gray-400">#{u.id}</td>
+                                    <td className="p-4 font-bold text-gray-800">
+                                        {u.name} {isSelf && <span className="text-xs text-blue-600 ml-2 bg-blue-100 px-2 py-0.5 rounded-full">(Vos)</span>}
                                     </td>
-                                    <td className="p-3 text-sm text-gray-600">{u.email}</td>
-                                    <td className="p-3">
-                                        <span className={`px-2 py-1 rounded text-xs font-bold ${u.role === 'admin' ? 'bg-purple-100 text-purple-800' : 'bg-gray-100 text-gray-800'}`}>
+                                    <td className="p-4 text-sm text-gray-600">{u.email}</td>
+                                    <td className="p-4">
+                                        <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide ${u.role === 'admin' ? 'bg-purple-100 text-purple-800' : 'bg-gray-100 text-gray-800'}`}>
                                             {u.role}
                                         </span>
                                     </td>
-                                    <td className="p-3">
+                                    <td className="p-4">
                                         <select 
                                             value={u.role}
                                             onChange={(e) => handleRoleChange(u.id, e.target.value)}
-                                            disabled={isSelf} // Bloqueamos si es el admin actual (RN-07)
-                                            className={`border p-1 rounded text-sm bg-white ${isSelf ? 'opacity-50 cursor-not-allowed' : ''}`}
-                                            title={isSelf ? "No podés cambiar tu propio rol" : ""}
+                                            disabled={isSelf}
+                                            className={`border border-gray-300 p-1.5 rounded-lg text-sm bg-white focus:ring-2 focus:ring-blue-500 outline-none ${isSelf ? 'opacity-50 cursor-not-allowed bg-gray-100' : 'cursor-pointer'}`}
                                         >
                                             <option value="user">Usuario</option>
                                             <option value="admin">Administrador</option>

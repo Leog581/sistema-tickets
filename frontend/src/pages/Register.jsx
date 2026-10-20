@@ -16,10 +16,9 @@ const Register = () => {
         e.preventDefault();
         setError('');
         setLoading(true);
-
         try {
             await register(name, email, password);
-            navigate('/tickets'); // Si se registra bien, ya queda logueado y va a sus tickets
+            navigate('/tickets');
         } catch (err) {
             setError(err.message);
         } finally {
@@ -28,59 +27,60 @@ const Register = () => {
     };
 
     return (
-        <div className="max-w-md mx-auto mt-10 bg-white p-8 rounded shadow-md">
-            <h2 className="text-2xl font-bold mb-6 text-center">Crear Cuenta</h2>
-            
-            {error && (
-                <div className="bg-red-100 text-red-700 p-3 rounded mb-4 text-sm">
-                    {error}
+        <div className="flex justify-center items-center min-h-[70vh]">
+            <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-xl border border-gray-100">
+                <div className="text-center mb-8">
+                    <h2 className="text-3xl font-extrabold text-gray-800">Crear Cuenta</h2>
+                    <p className="text-gray-500 mt-2">Unite para empezar a reportar problemas</p>
                 </div>
-            )}
+                
+                {error && <div className="bg-red-50 text-red-600 p-3 rounded-lg mb-6 text-sm border border-red-100 text-center">{error}</div>}
 
-            <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                    <label className="block text-gray-700 mb-1">Nombre</label>
-                    <input 
-                        type="text" 
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        className="w-full border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        required 
-                    />
-                </div>
-                <div>
-                    <label className="block text-gray-700 mb-1">Email</label>
-                    <input 
-                        type="email" 
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        className="w-full border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        required 
-                    />
-                </div>
-                <div>
-                    <label className="block text-gray-700 mb-1">Contraseña (mínimo 6 caracteres)</label>
-                    <input 
-                        type="password" 
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        className="w-full border p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        required 
-                        minLength={6}
-                    />
-                </div>
-                <button 
-                    type="submit" 
-                    disabled={loading}
-                    className="w-full bg-green-600 text-white p-2 rounded hover:bg-green-700 disabled:bg-green-300"
-                >
-                    {loading ? 'Registrando...' : 'Registrarse'}
-                </button>
-            </form>
+                <form onSubmit={handleSubmit} className="space-y-5">
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Nombre Completo</label>
+                        <input 
+                            type="text" 
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all"
+                            required 
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Correo Electrónico</label>
+                        <input 
+                            type="email" 
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all"
+                            required 
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Contraseña (mín. 6 caracteres)</label>
+                        <input 
+                            type="password" 
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 outline-none transition-all"
+                            required 
+                            minLength={6}
+                        />
+                    </div>
+                    <button 
+                        type="submit" 
+                        disabled={loading}
+                        className="w-full bg-green-600 text-white py-3 rounded-lg font-bold hover:bg-green-700 transition-colors disabled:opacity-50 shadow-md"
+                    >
+                        {loading ? 'Creando cuenta...' : 'Registrarme'}
+                    </button>
+                </form>
 
-            <p className="mt-4 text-center text-sm text-gray-600">
-                ¿Ya tenés cuenta? <Link to="/login" className="text-blue-600 hover:underline">Iniciá sesión</Link>
-            </p>
+                <p className="mt-6 text-center text-sm text-gray-600">
+                    ¿Ya tenés cuenta? <Link to="/login" className="text-green-600 font-bold hover:underline">Iniciá sesión</Link>
+                </p>
+            </div>
         </div>
     );
 };
