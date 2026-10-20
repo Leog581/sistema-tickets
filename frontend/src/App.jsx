@@ -1,7 +1,9 @@
 import { Routes, Route } from 'react-router-dom';
 import ProtectedRoute from './components/ProtectedRoute';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
-// Importamos todas las páginas (aunque por ahora estén vacías)
+// Páginas
 import Home from './pages/Home';
 import Products from './pages/Products';
 import Login from './pages/Login';
@@ -15,29 +17,34 @@ import NotFound from './pages/NotFound';
 
 const App = () => {
     return (
-        <Routes>
-            {/* Rutas Públicas (cualquiera puede verlas) */}
-            <Route path="/" element={<Home />} />
-            <Route path="/products" element={<Products />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
+        <div className="flex flex-col min-h-screen bg-gray-50">
+            <Navbar />
+            
+            {/* El main crece para empujar el footer abajo */}
+            <main className="flex-grow container mx-auto p-4">
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/products" element={<Products />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
 
-            {/* Rutas Protegidas (Requieren estar logueado) */}
-            <Route element={<ProtectedRoute />}>
-                <Route path="/tickets" element={<MyTickets />} />
-                <Route path="/tickets/new" element={<NewTicket />} />
-                <Route path="/tickets/:id" element={<TicketDetail />} />
-            </Route>
+                    <Route element={<ProtectedRoute />}>
+                        <Route path="/tickets" element={<MyTickets />} />
+                        <Route path="/tickets/new" element={<NewTicket />} />
+                        <Route path="/tickets/:id" element={<TicketDetail />} />
+                    </Route>
 
-            {/* Rutas de Admin (Requieren estar logueado Y ser admin) */}
-            <Route element={<ProtectedRoute requireAdmin={true} />}>
-                <Route path="/admin/tickets" element={<AdminTickets />} />
-                <Route path="/admin/users" element={<AdminUsers />} />
-            </Route>
+                    <Route element={<ProtectedRoute requireAdmin={true} />}>
+                        <Route path="/admin/tickets" element={<AdminTickets />} />
+                        <Route path="/admin/users" element={<AdminUsers />} />
+                    </Route>
 
-            {/* Ruta para cualquier URL que no exista */}
-            <Route path="*" element={<NotFound />} />
-        </Routes>
+                    <Route path="*" element={<NotFound />} />
+                </Routes>
+            </main>
+
+            <Footer />
+        </div>
     );
 };
 
